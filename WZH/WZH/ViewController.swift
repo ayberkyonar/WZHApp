@@ -11,6 +11,9 @@ class ViewController: UIViewController {
 
     var quizQuestions: [QuizQuestion] = []
     var categoryQuestions: [QuizQuestion] = []
+    var categoryAnswers: [QuizQuestion] = []
+    
+    var currentIndex = 0
     
     @IBOutlet weak var redButton: UIButton!
     @IBOutlet weak var greenButton: UIButton!
@@ -69,6 +72,13 @@ class ViewController: UIViewController {
         categoryQuestions = quizQuestions.filter{$0.category == .orange}
         questionLabel.text = categoryQuestions[4].question
     }
+
+    @IBAction func showAnswer(_ sender: Any) {
+        currentIndex += 0
+        answerLabel.text = categoryQuestions[currentIndex].answer
+        setupQuiz()
+    }
+    
     
     func hideButtons(){
         redButton.isHidden = true
