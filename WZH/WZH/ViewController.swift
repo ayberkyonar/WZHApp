@@ -11,7 +11,6 @@ class ViewController: UIViewController {
 
     var quizQuestions: [QuizQuestion] = []
     var categoryQuestions: [QuizQuestion] = []
-    var categoryAnswers: [QuizQuestion] = []
     
     var currentIndex = 0
     
@@ -45,39 +44,60 @@ class ViewController: UIViewController {
     @IBAction func buttonOne(_ sender: Any) {
         hideButtons()
         categoryQuestions = quizQuestions.filter{$0.category == .red}
-        questionLabel.text = categoryQuestions[0].question
-        
+        questionLabel.text = categoryQuestions[currentIndex].question
     }
     
     @IBAction func buttonTwo(_ sender: Any) {
         hideButtons()
         categoryQuestions = quizQuestions.filter{$0.category == .green}
-        questionLabel.text = categoryQuestions[1].question
+        questionLabel.text = categoryQuestions[currentIndex].question
     }
     
     @IBAction func buttonThree(_ sender: Any) {
         hideButtons()
         categoryQuestions = quizQuestions.filter{$0.category == .blue}
-        questionLabel.text = categoryQuestions[2].question
+        questionLabel.text = categoryQuestions[currentIndex].question
     }
     
     @IBAction func buttonFour(_ sender: Any) {
         hideButtons()
         categoryQuestions = quizQuestions.filter{$0.category == .yellow}
-        questionLabel.text = categoryQuestions[3].question
+        questionLabel.text = categoryQuestions[currentIndex].question
     }
     
     @IBAction func buttonFive(_ sender: Any) {
         hideButtons()
         categoryQuestions = quizQuestions.filter{$0.category == .orange}
-        questionLabel.text = categoryQuestions[4].question
+        questionLabel.text = categoryQuestions[currentIndex].question
     }
 
     @IBAction func showAnswer(_ sender: Any) {
         currentIndex += 0
         answerLabel.text = categoryQuestions[currentIndex].answer
+        answerLabel.isHidden = false
         setupQuiz()
     }
+    
+    @IBAction func nextQuestion(_ sender: Any) {
+        currentIndex += 1
+        questionLabel.text = categoryQuestions[currentIndex].question
+        answerLabel.isHidden = true
+        setupQuiz()
+    }
+    
+    @IBAction func back(_ sender: Any) {
+    
+    }
+    
+    @IBAction func answerField(_ sender: Any) {
+        if answerField.text == categoryQuestions[currentIndex].answer{
+            questionLabel.text = "yo"
+        }
+        else{
+            questionLabel.text = "ewa"
+        }
+    }
+    
     
     
     func hideButtons(){
@@ -89,7 +109,6 @@ class ViewController: UIViewController {
         backButton.isHidden = false
         
         questionLabel.isHidden = false
-        answerLabel.isHidden = false
         answerField.isHidden = false
         showAnswer.isHidden = false
         nextQuestion.isHidden = false
