@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     var quizQuestions: [QuizQuestion] = []
     var categoryQuestions: [QuizQuestion] = []
@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        answerField.delegate = self
         // Do any additional setup after loading the view.
         
         setupQuiz()
@@ -37,9 +38,6 @@ class ViewController: UIViewController {
         getLocalQuizData()
     }
     
-    @IBAction func backButton(_ sender: Any) {
-        showButtons()
-    }
     
     @IBAction func buttonOne(_ sender: Any) {
         hideButtons()
@@ -82,23 +80,25 @@ class ViewController: UIViewController {
         currentIndex += 1
         questionLabel.text = categoryQuestions[currentIndex].question
         answerLabel.isHidden = true
+        answerField.text = ""
         setupQuiz()
     }
     
-    @IBAction func back(_ sender: Any) {
-    
-    }
-    
-    @IBAction func answerField(_ sender: Any) {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        answerLabel.isHidden = false
         if answerField.text == categoryQuestions[currentIndex].answer{
-            questionLabel.text = "yo"
+            answerLabel.text = "✅"
         }
         else{
-            questionLabel.text = "ewa"
+            answerLabel.text = "❌"
         }
+        return true;
     }
     
-    
+    @IBAction func backButton(_ sender: Any) {
+        showButtons()
+        answerField.text = ""
+    }
     
     func hideButtons(){
         redButton.isHidden = true
