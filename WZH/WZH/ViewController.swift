@@ -84,6 +84,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         questionLabel.text = categoryQuestions[currentIndex].question
         answerLabel.isHidden = true
         answerField.text = ""
+        answerField.isHidden = false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
